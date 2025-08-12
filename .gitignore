@@ -135,5 +135,5 @@ dmypy.json
 
 
 # datasets
-Dataset_Scalar100_SEPE/
-Dataset_Scalar100_SExPE/
+Dataset_Scale100_SEPE/
+Dataset_Scale100_SExPE/
