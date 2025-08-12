@@ -132,3 +132,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# datasets
+Dataset_Scalar100_SEPE/
+Dataset_Scalar100_SExPE/
