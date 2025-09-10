@@ -5,20 +5,8 @@ from skimage.metrics import structural_similarity as ssim
 import numpy as np
 import cv2
 
-
-# RESULT_PATH = 'experiments/train_Palette_scalar100_sepe_250728_213303/results/val/350' #train sepe
-# TITLE = 'Palette SE + PE Train'
-# RESULT_PATH = 'experiments/test_Palette_scalar100_sepe_250807_153359/results/test/0' #test (train sepe)
-# TITLE = 'Palette SE + PE Test'
-# RESULT_PATH = 'experiments/test_Palette_scalar100_sepe_250807_161535/results/test/0'   #test1 (test1 sepe)
-# RESULT_PATH = 'experiments/test_Palette_scalar100_sepe_250807_163715/results/test/0' #test2 (test2 sepe)
-
-# RESULT_PATH = 'experiments/test_Palette_scalar100_sexpe_250808_004447/results/val/350' #train sexpe
-# TITLE = 'Palette SE x PE Train'
-# RESULT_PATH = 'experiments/test_Palette_scalar100_sexpe_250808_082920/results/test/0' #test (train sexpe)
-TITLE = 'Palette SE x PE Test'
-RESULT_PATH = 'experiments/test_Palette_scalar100_sexpe_250808_084750/results/test/0' #test1 (test1 sexpe)
-
+TITLE = 'Palette SE + PE Test'
+RESULT_PATH = 'experiments/test_Palette_scalar100_sexpe_test_abl_hm_250910_023016/results/test/0' #test 
 
 
 def predict_ssim(gt_img, pred_img):
@@ -143,4 +131,4 @@ if __name__ == '__main__':
     avg_ssim = total_ssim / len(GT_paths)
     avg_iou = total_iou / len(GT_paths)
 
-    print(f'Average occupied accuracy for {TITLE}: {avg_occupied_accuracy:.4f}, Average free accuracy: {avg_free_accuracy:.4f}, Average SSIM: {avg_ssim:.4f}, Average IoU: {avg_iou:.4f}')
+    print(f'{TITLE}: \nAverage occupied accuracy: {avg_occupied_accuracy:.4f}, Average free accuracy: {avg_free_accuracy:.4f}, Average SSIM: {avg_ssim:.4f}, Average IoU: {avg_iou:.4f}')

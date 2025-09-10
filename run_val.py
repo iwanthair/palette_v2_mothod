@@ -21,13 +21,19 @@ from matplotlib import pyplot as plt
 import numpy as np
 from data.dataset import FloorPlanDataset
 
-TRAIN_DIR_Q0 = 'Dataset_Scale100_SExPE/train/Condition_1'
-TRAIN_DIR_Q1 = 'Dataset_Scale100_SExPE/train/Condition_2'
-TRAIN_DIR_TARGET = 'Dataset_Scale100_SExPE/train/Target'
+# VAL_DIR_Q0 = 'Dataset_Scale100_SExPE/Selected_50_train/Condition_1'
+# VAL_DIR_Q1 = 'Dataset_Scale100_SExPE/Selected_50_train/Condition_2'
+# VAL_DIR_TARGET = 'Dataset_Scale100_SExPE/Selected_50_train/Target'
+# VAL_DIR_Q0 = 'Dataset_Scale100_SExPE/Selected_50_test/Condition_1'
+# VAL_DIR_Q1 = 'Dataset_Scale100_SExPE/Selected_50_test/Condition_2'
+# VAL_DIR_TARGET = 'Dataset_Scale100_SExPE/Selected_50_test/Target'
 
-VAL_DIR_Q0 = 'Dataset_Scale100_SExPE/test/Condition_1'
-VAL_DIR_Q1 = 'Dataset_Scale100_SExPE/test/Condition_2'
-VAL_DIR_TARGET = 'Dataset_Scale100_SExPE/test/Target'
+# VAL_DIR_Q0 = 'Dataset_Scale100_SEPE/Selected_50_train/Condition_1'
+# VAL_DIR_Q1 = 'Dataset_Scale100_SEPE/Selected_50_train/Condition_2'
+# VAL_DIR_TARGET = 'Dataset_Scale100_SEPE/Selected_50_train/Target'
+VAL_DIR_Q0 = 'Dataset_Scale100_SEPE/Selected_50_test/Condition_1'
+VAL_DIR_Q1 = 'Dataset_Scale100_SEPE/Selected_50_test/Condition_2'
+VAL_DIR_TARGET = 'Dataset_Scale100_SEPE/Selected_50_test/Target'
 
 def main_worker(gpu, ngpus_per_node, opt):
     """  threads running on each GPU """
@@ -53,18 +59,17 @@ def main_worker(gpu, ngpus_per_node, opt):
     phase_logger.info('Create the log file in directory {}.\n'.format(opt['path']['experiments_root']))
 
     ''' set dataloader '''
-    train_dataset = FloorPlanDataset(TRAIN_DIR_Q0, TRAIN_DIR_Q1, TRAIN_DIR_TARGET, image_size=[128, 128])
-    print("Number of training samples:", len(train_dataset))
-    dataloader_train = DataLoader(train_dataset, batch_size=1, shuffle=True, num_workers=4, pin_memory=True, drop_last=True)
-    print("Number of training batches:", len(dataloader_train))
-    print("Shape of dataloader:", next(iter(dataloader_train))['cond_image'].shape)
+    # train_dataset = FloorPlanDataset(TRAIN_DIR_Q0, TRAIN_DIR_Q1, TRAIN_DIR_TARGET, image_size=[128, 128])
+    # print("Number of training samples:", len(train_dataset))
+    # dataloader_train = DataLoader(train_dataset, batch_size=1, shuffle=True, num_workers=4, pin_memory=True, drop_last=True)
+    # print("Number of training batches:", len(dataloader_train))
+    # print("Shape of dataloader:", next(iter(dataloader_train))['cond_image'].shape)
 
-    
     val_dataset = FloorPlanDataset(VAL_DIR_Q0, VAL_DIR_Q1, VAL_DIR_TARGET, image_size=[128, 128])
     dataloader_val = DataLoader(val_dataset, batch_size=1, shuffle=True, num_workers=4, pin_memory=True, drop_last=False)
     print("Number of validation samples:", len(val_dataset))
 
-    phase_loader, val_loader = dataloader_val, dataloader_val
+    phase_loader, val_loader = dataloader_val, dataloader_val # validation on testing set
     networks = [define_network(phase_logger, opt, item_opt) for item_opt in opt['model']['which_networks']]
 
     ''' set metrics, loss, optimizer and  schedulers '''
@@ -94,7 +99,7 @@ def main_worker(gpu, ngpus_per_node, opt):
         
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', type=str, default='config/Palette_scalar100_sexpe.json', help='JSON file for configuration')
+    parser.add_argument('-c', '--config', type=str, default='config/Palette_scalar100_sepe.json', help='JSON file for configuration')
     parser.add_argument('-p', '--phase', type=str, choices=['train','test'], help='Run train or test', default='test')
     parser.add_argument('-b', '--batch', type=int, default=None, help='Batch size in every gpu')
     parser.add_argument('-gpu', '--gpu_ids', type=str, default=None)

@@ -135,5 +135,7 @@ dmypy.json
 
 
 # datasets
-Dataset_Scale100_SEPE/
-Dataset_Scale100_SExPE/
+Dataset_Scale100_SEPE/train
+Dataset_Scale100_SEPE/test
+Dataset_Scale100_SExPE/train
+Dataset_Scale100_SExPE/test

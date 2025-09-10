@@ -134,7 +134,7 @@ class Palette(BaseModel):
         with torch.no_grad():
             itr = 0
             for val_data in tqdm.tqdm(self.val_loader,disable=True):
-                itr = itr + 1
+                itr += 1
                 self.set_input(val_data)
                 if self.opt['distributed']:
                     if self.task in ['inpainting','uncropping']:
@@ -147,7 +147,6 @@ class Palette(BaseModel):
                         self.output, self.visuals = self.netG.restoration(self.cond_image, y_t=self.cond_image, 
                             y_0=self.gt_image, mask=self.mask, sample_num=self.sample_num)
                     else:
-                        #print(self.cond_image.shape)
                         self.output, self.visuals = self.netG.restoration(self.cond_image, sample_num=self.sample_num)
                     
                 self.iter += self.batch_size
@@ -161,9 +160,8 @@ class Palette(BaseModel):
                 for key, value in self.get_current_visuals(phase='val').items():
                     self.writer.add_images(key, value)
                 
-                if itr%5 == 0:
-                    self.writer.save_images(self.save_current_results(), itr)
-                if itr == 30:
+                self.writer.save_images(self.save_current_results(), itr)
+                if itr == 5:
                     break
 
         return self.val_metrics.result()
@@ -174,6 +172,7 @@ class Palette(BaseModel):
         with torch.no_grad():
             itr = 0
             for phase_data in tqdm.tqdm(self.phase_loader):
+                itr += 1
                 self.set_input(phase_data)
                 if self.opt['distributed']:
                     if self.task in ['inpainting','uncropping']:
@@ -187,23 +186,11 @@ class Palette(BaseModel):
                             y_0=self.gt_image, mask=self.mask, sample_num=self.sample_num)
                     else:
                         #print(self.cond_image.shape)
-                        self.output, self.visuals = self.netG.restoration(self.cond_image, sample_num=self.sample_num,itr=itr+1)
+                        self.output, self.visuals = self.netG.restoration(self.cond_image, sample_num=self.sample_num,itr=itr)
                         
                 self.iter += self.batch_size
                 self.writer.set_iter(self.epoch, self.iter, phase='test')
-                itr = itr+1
-                #for met in self.metrics:
-                #    key = met.__name__
-                #    value = met(self.gt_image, self.output)
-                #    self.test_metrics.update(key, value)
-                #    self.writer.add_scalar(key, value)
-                #for key, value in self.get_current_visuals(phase='test').items():
-                #    self.writer.add_images(key, value)
-                #self.path = [str(itr)]
-                
                 self.writer.save_images(self.save_current_results(),itr = itr)
-                if itr == 50:
-                    break
         
         test_log = self.test_metrics.result()
         ''' save logged informations into log dict ''' 
