@@ -69,3 +69,23 @@ Key dependencies include PyTorch, TorchVision, OpenCV, TensorBoard, and other ML
 ## Model Architecture
 
 This project implements the Palette diffusion model for conditional image generation, specifically adapted for floor plan recovery tasks. The model uses a U-Net architecture with attention mechanisms for image-to-image translation.
+
+## Reference
+
+This implementation is based on the Palette model and adapted from:
+
+**Implementation**: [Janspiry/Palette-Image-to-Image-Diffusion-Models](https://github.com/Janspiry/Palette-Image-to-Image-Diffusion-Models)
+
+**Original Paper**: Palette: Image-to-Image Diffusion Models  
+*Chitwan Saharia, William Chan, Huiwen Chang, Chris Lee, Jonathan Ho, Tim Salimans, David Fleet, Mohammad Norouzi*  
+SIGGRAPH 2022  
+[Paper](https://arxiv.org/abs/2111.05826)
+
+```bibtex
+@article{saharia2022palette,
+  title={Palette: Image-to-image diffusion models},
+  author={Saharia, Chitwan and Chan, William and Chang, Huiwen and Lee, Chris and Ho, Jonathan and Salimans, Tim and Fleet, David and Norouzi, Mohammad},
+  journal={arXiv preprint arXiv:2111.05826},
+  year={2021}
+}
+```
