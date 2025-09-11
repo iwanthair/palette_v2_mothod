@@ -59,12 +59,6 @@ def main_worker(gpu, ngpus_per_node, opt):
     phase_logger.info('Create the log file in directory {}.\n'.format(opt['path']['experiments_root']))
 
     ''' set dataloader '''
-    # train_dataset = FloorPlanDataset(TRAIN_DIR_Q0, TRAIN_DIR_Q1, TRAIN_DIR_TARGET, image_size=[128, 128])
-    # print("Number of training samples:", len(train_dataset))
-    # dataloader_train = DataLoader(train_dataset, batch_size=1, shuffle=True, num_workers=4, pin_memory=True, drop_last=True)
-    # print("Number of training batches:", len(dataloader_train))
-    # print("Shape of dataloader:", next(iter(dataloader_train))['cond_image'].shape)
-
     val_dataset = FloorPlanDataset(VAL_DIR_Q0, VAL_DIR_Q1, VAL_DIR_TARGET, image_size=[128, 128])
     dataloader_val = DataLoader(val_dataset, batch_size=1, shuffle=True, num_workers=4, pin_memory=True, drop_last=False)
     print("Number of validation samples:", len(val_dataset))

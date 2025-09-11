@@ -21,9 +21,10 @@ from matplotlib import pyplot as plt
 import numpy as np
 from data.dataset import FloorPlanDataset
 
-VAL_DIR_Q0 = 'Dataset_rw/sexpe_exp1_gmap/Condition_1'
-VAL_DIR_Q1 = 'Dataset_rw/sexpe_exp1_gmap/Condition_2'
-# VAL_DIR_TARGET = 'Dataset_rw/sepe_exp1_gmap/Target'
+EXP = 5
+TYPE = 'sepe'  # 'sepe' or 'sexpe'
+VAL_DIR_Q0 = F'Dataset_rw/{TYPE}_exp{EXP}_gmap/Condition_1'
+VAL_DIR_Q1 = F'Dataset_rw/{TYPE}_exp{EXP}_gmap/Condition_2'
 
 def main_worker(gpu, ngpus_per_node, opt):
     """  threads running on each GPU """
@@ -78,13 +79,13 @@ def main_worker(gpu, ngpus_per_node, opt):
             model.train()
         else:
             model.test()
-    # finally:
-    #     phase_writer.close()
+    finally:
+        phase_writer.close()
         
         
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', type=str, default='config/Palette_scalar100_sepe.json', help='JSON file for configuration')
+    parser.add_argument('-c', '--config', type=str, default=f'config/Palette_scalar100_{TYPE}_rw.json', help='JSON file for configuration')
     parser.add_argument('-p', '--phase', type=str, choices=['train','test'], help='Run train or test', default='test')
     parser.add_argument('-b', '--batch', type=int, default=None, help='Batch size in every gpu')
     parser.add_argument('-gpu', '--gpu_ids', type=str, default=None)
@@ -110,3 +111,4 @@ if __name__ == '__main__':
     else:
         opt['world_size'] = 1 
         main_worker(0, 1, opt)
+    

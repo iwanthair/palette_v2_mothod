@@ -6,7 +6,7 @@ import numpy as np
 import cv2
 
 TITLE = 'Palette SE + PE Test'
-RESULT_PATH = 'experiments/test_Palette_scalar100_sexpe_test_abl_hm_250910_023016/results/test/0' #test 
+RESULT_PATH = 'experiments/test_Palette_scalar100_test_abl_traj_250910_035408/results/test/0' #test 
 
 
 def predict_ssim(gt_img, pred_img):

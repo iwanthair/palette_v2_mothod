@@ -1,5 +1,5 @@
 {
-    "name": "Palette_scalar100_test_abl_traj", // experiments name
+    "name": "rw_Palette_scalar100_sepe_test", // experiments name
     "gpu_ids": [0], // gpu ids list, default is single 0
     "seed" : -1, // random seed, seed <0 represents randomization not used 
     "finetune_norm": false, // find the parameters to optimize
@@ -10,8 +10,8 @@
         "tb_logger": "tb_logger", // path of tensorboard logger
         "results": "results",
         "checkpoint": "checkpoint",
-        // "resume_state": null
-        "resume_state": "experiments/train_Palette_scalar100_train_abl_traj_250908_052349/checkpoint/350"
+        // "resume_state": null,
+        "resume_state": "experiments/train_Palette_scalar100_sepe_250728_213303/checkpoint/350"
     },
 
     "datasets": { // train or test
@@ -83,7 +83,7 @@
                     "init_type": "kaiming", // method can be [normal | xavier| xavier_uniform | kaiming | orthogonal], default is kaiming
                     "module_name": "guided_diffusion", // sr3 | guided_diffusion
                     "unet": {
-                        "in_channel": 2,
+                        "in_channel": 5,
                         "out_channel": 1,
                         "inner_channel": 64,
                         "channel_mults": [
@@ -131,8 +131,8 @@
     "train": { // arguments for basic training
         "n_epoch": 351, // max epochs, not limited now
         "n_iter": 1e8, // max interations
-        "val_epoch": 100, // valdation every specified number of epochs
-        "save_checkpoint_epoch": 50,
+        "val_epoch": 50, // valdation every specified number of epochs
+        "save_checkpoint_epoch": 10,
         "log_iter": 1e4, // log every specified number of iterations
         "tensorboard" : true // tensorboardX enable
     },
