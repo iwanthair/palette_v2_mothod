@@ -2,6 +2,10 @@
 
 A PyTorch implementation of image-to-image diffusion models for floor plan recovery tasks. This project uses the Palette diffusion model architecture to reconstruct floor plans from conditional inputs.
 
+## Experiment Results
+
+All the experiment results can be downloaded from the link: [Experiment Results](https://drive.google.com/drive/folders/1pF2kcEQtI5ZRlZ_g0hJ_k6cxHfXubIxY?usp=drive_link)
+
 ## Project Structure
 
 ### Root Files
@@ -28,7 +32,7 @@ Contains JSON configuration files for different experimental setups:
 ### Data Management (`data/`)
 
 Data loading and preprocessing modules:
-- **`dataset.py`** - Main dataset classes including `FloorPlanDataset` for handling floor plan images and conditions
+- **`dataset.py`** - Main dataset classes, including `FloorPlanDataset` for handling floor plan images and conditions
 
 ### Datasets
 
